@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Sign-up Form</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-side">
+        <div class="left-content">
+          <div class="logo-container">
+            <img
+              class="logo"
+              src="images/odin-lined.png"
+              alt="odin-logo"
+              width="300"
+              height="300"
+            />
+            <p class="odin">Odin</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-side">
+        <h1>This is not a real online service but sign up anyways.</h1>
+        <form action="" method="post">
+          <span>Let's do this!</span>
+          <div class="fields">
+            <label for="first-name">First Name:</label>
+            <input
+              type="text"
+              name="first-name"
+              id="first-name"
+              placeholder="Firstname"
+            />
+            <label for="last-name">Last Name:</label>
+            <input
+              type="text"
+              id="last-name"
+              name="last-name"
+              placeholder="Lastname"
+            />
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="firstlast@email.com"
+            />
+            <label for="phone">Phone Number:</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="e.g. (123) 456-7890"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              title="Phone number must be in the format 123-456-7890"
+            />
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+            <label for="confirmPassword">Confirm Password:</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+            />
+          </div>
+          <button type="submit">Create Account</button>
+          <p>Already have an account? <a href="#">Sign In</a></p>
+        </form>
+      </div>
+    </div>
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        const passwordField = document.getElementById("password");
+        const confirmField = document.getElementById("confirmPassword");
+
+        const password = passwordField.value;
+        const confirm = confirmField.value;
+
+        // Remove previous error classes
+        passwordField.classList.remove("error");
+        confirmField.classList.remove("error");
+
+        const minLength = 8;
+        const hasUpper = /[A-Z]/.test(password);
+        const hasLower = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecial = /[!@#$%^&*]/.test(password);
+
+        if (password !== confirm) {
+          alert("Passwords do not match.");
+          passwordField.classList.add("error");
+          confirmField.classList.add("error");
+          e.preventDefault();
+        } else if (password.length < minLength) {
+          alert("Password must be at least 8 characters.");
+          passwordField.classList.add("error");
+          e.preventDefault();
+        } else if (!(hasUpper && hasLower && hasNumber && hasSpecial)) {
+          alert(
+            "Password must include uppercase, lowercase, number, and special character."
+          );
+          passwordField.classList.add("error");
+          e.preventDefault();
+        }
+      });
+    </script>
+  </body>
+</html>
